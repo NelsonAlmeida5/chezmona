@@ -2,39 +2,50 @@
 import { prestationCategories, packages } from '~/data/prestations'
 
 useHead({ title: 'Prestations & tarifs — Chez Mona' })
+
+// Labels d'images par catégorie — purement présentation, la donnée en base n'est pas modifiée.
+const categoryImages: Record<string, string> = {
+  'soins-laser-classiques': 'Soin laser',
+  'petites-interventions': 'Soin esthétique',
+  'moyennes-interventions': 'Ambiance cabinet'
+}
 </script>
 
 <template>
   <div>
     <!-- Hero -->
     <section class="section hero-section">
-      <div class="wrap center">
-        <SectionEyebrow text="Prestations & tarifs" center />
-        <h1 class="h-xl">Nos soins &amp; nos tarifs</h1>
-        <p class="lead center">
-          Des prestations claires, des tarifs transparents. Tous nos soins sont réalisés sur rendez-vous.
-        </p>
-        <nav class="cat-nav" aria-label="Catégories">
-          <a v-for="category in prestationCategories" :key="category.id" :href="`#cat-${category.id}`">
-            {{ category.title }}
-          </a>
-          <a href="#forfaits">Forfaits</a>
-        </nav>
+      <div class="wrap">
+        <div class="hero-inner center">
+          <SectionEyebrow text="Prestations & tarifs" center />
+          <h1 class="h-xl">Nos soins &amp; nos tarifs</h1>
+          <p class="lead center">
+            Des prestations claires, des tarifs transparents, dans un cadre pensé pour votre bien-être.
+          </p>
+          <NuxtLink to="#reservation" class="btn btn--primary btn--lg">Réserver un rendez-vous</NuxtLink>
+          <nav class="cat-nav" aria-label="Catégories">
+            <a v-for="category in prestationCategories" :key="category.id" :href="`#cat-${category.id}`">
+              {{ category.title }}
+            </a>
+            <a href="#forfaits">Forfaits</a>
+          </nav>
+        </div>
       </div>
     </section>
 
-    <!-- Catégories de prestations -->
-    <section class="section categories-section">
+    <!-- Catégories de prestations, alternées texte/image -->
+    <section
+      v-for="(category, index) in prestationCategories"
+      :key="category.id"
+      class="section category-section"
+      :class="{ 'section--sand': index % 2 === 1 }"
+    >
       <div class="wrap">
         <PriceCategory
-          v-for="category in prestationCategories"
-          :key="category.id"
           :category="category"
+          :image-label="categoryImages[category.id]"
+          :reverse="index % 2 === 1"
         />
-        <p class="pending-note">
-          <strong>Tarifs provisoires —</strong>
-          transcrits depuis les visuels transmis par la cliente, à valider avec elle avant la mise en ligne définitive.
-        </p>
       </div>
     </section>
 
@@ -44,6 +55,7 @@ useHead({ title: 'Prestations & tarifs — Chez Mona' })
         <div class="section-head center">
           <SectionEyebrow text="Forfaits" center />
           <h2 class="h-lg">Nos forfaits</h2>
+          <p class="lead center">Des formules complètes pour prendre soin de vous, en une seule séance.</p>
         </div>
         <div class="package-grid">
           <PackageCard v-for="pkg in packages" :key="pkg.id" :pkg="pkg" />
@@ -51,25 +63,15 @@ useHead({ title: 'Prestations & tarifs — Chez Mona' })
       </div>
     </section>
 
-    <!-- Section visuelle -->
-    <section class="section">
-      <div class="wrap">
-        <div class="visual-grid">
-          <div class="visual-grid__tile">
-            <ImagePlaceholder label="Cabine de soin" />
-          </div>
-          <div class="visual-grid__tile">
-            <ImagePlaceholder label="Espace laser" />
-          </div>
-          <div class="visual-grid__tile">
-            <ImagePlaceholder label="Produits" />
-          </div>
-        </div>
-      </div>
-    </section>
+    <!-- Note tarifs -->
+    <div class="wrap">
+      <p class="pricing-note center">
+        Les tarifs affichés seront confirmés avec le salon avant la mise en ligne finale.
+      </p>
+    </div>
 
     <!-- CTA final -->
-    <section class="section section--sand">
+    <section class="section">
       <div class="wrap">
         <CtaBand
           title="Une question sur nos soins ?"
@@ -83,85 +85,87 @@ useHead({ title: 'Prestations & tarifs — Chez Mona' })
 </template>
 
 <style scoped>
+/* ---- Hero ---- */
 .hero-section {
-  padding-bottom: 0;
+  position: relative;
+  overflow: hidden;
 }
-.categories-section {
-  padding-top: 0;
+.hero-section::before {
+  content: "";
+  position: absolute;
+  inset: -10% -10% auto;
+  height: 60%;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(55% 70% at 50% 20%, rgba(233, 214, 200, .55), transparent 70%);
+}
+.hero-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 720px;
+  margin-inline: auto;
+}
+.hero-inner .lead {
+  margin: 1.2rem auto 2rem;
+}
+.hero-inner .btn {
+  margin-bottom: 2.6rem;
 }
 
 .cat-nav {
   display: flex;
   flex-wrap: wrap;
-  gap: .5rem;
+  gap: .6rem;
   justify-content: center;
-  margin-top: 1.8rem;
 }
 .cat-nav a {
   font-weight: 600;
-  font-size: .86rem;
-  padding: .5em 1.1em;
+  font-size: .84rem;
+  letter-spacing: .02em;
+  padding: .6em 1.3em;
   border-radius: 999px;
-  background: #fff;
+  background: transparent;
   border: 1px solid var(--border);
   color: var(--ink);
-  transition: border-color .2s, color .2s;
+  transition: border-color .2s, color .2s, background .2s;
 }
 .cat-nav a:hover {
   border-color: var(--brown);
   color: var(--brown);
-}
-
-.pending-note {
   background: var(--sand);
-  border: 1px dashed var(--border);
-  border-radius: 14px;
-  padding: 1.1rem 1.3rem;
-  font-size: .88rem;
-  color: var(--stone);
-  margin-top: 2rem;
 }
 
+/* ---- Forfaits ---- */
 .section-head {
   max-width: 62ch;
 }
 .section-head.center {
   margin-inline: auto;
 }
-
 .package-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1.2rem;
-  margin-top: 2.4rem;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.4rem;
+  margin-top: 2.6rem;
 }
 
-.visual-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-}
-.visual-grid__tile {
-  aspect-ratio: 4 / 3;
-  border-radius: var(--radius);
-  overflow: hidden;
-  background: var(--linen);
+/* ---- Note tarifs ---- */
+.pricing-note {
+  max-width: 640px;
+  margin: 0 auto;
+  padding-bottom: clamp(40px, 6vw, 64px);
+  font-size: .82rem;
+  font-style: italic;
+  color: var(--stone);
 }
 
-@media (max-width: 1000px) {
+/* ---- Responsive ---- */
+@media (max-width: 700px) {
   .package-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-@media (max-width: 780px) {
-  .visual-grid {
     grid-template-columns: 1fr;
   }
 }
 @media (max-width: 620px) {
-  .package-grid {
-    grid-template-columns: 1fr;
-  }
   .cat-nav {
     justify-content: flex-start;
     overflow-x: auto;

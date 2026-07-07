@@ -8,65 +8,79 @@ defineProps<{
 
 <template>
   <article class="package-card">
-    <div class="package-card__media">
-      <ImagePlaceholder :label="pkg.imageLabel || pkg.title" />
+    <p class="package-card__eyebrow">Forfait</p>
+    <h3>{{ pkg.title }}</h3>
+    <div class="package-card__price">
+      <span class="package-card__amount">{{ pkg.price }}</span>
+      <span class="package-card__duration">{{ pkg.duration }}</span>
     </div>
-    <div class="package-card__body">
-      <h3>{{ pkg.title }}</h3>
-      <div class="package-card__price">
-        <span class="package-card__amount">{{ pkg.price }}</span>
-        <span class="package-card__duration">{{ pkg.duration }}</span>
-      </div>
-      <ul class="package-card__includes">
-        <li v-for="item in pkg.includes" :key="item.id">{{ item.label }}</li>
-      </ul>
-      <NuxtLink to="#reservation" class="btn btn--primary btn--block">Réserver ce forfait</NuxtLink>
-    </div>
+    <ul class="package-card__includes">
+      <li v-for="item in pkg.includes" :key="item.id">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg>
+        {{ item.label }}
+      </li>
+    </ul>
+    <NuxtLink to="#reservation" class="btn btn--primary btn--block">Réserver ce forfait</NuxtLink>
   </article>
 </template>
 
 <style scoped>
 .package-card {
+  position: relative;
+  overflow: hidden;
   background: var(--card);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
-  overflow: hidden;
+  border-radius: var(--radius-lg);
+  padding: 2rem 1.9rem 1.9rem;
   display: flex;
   flex-direction: column;
+  gap: 1rem;
   transition: transform .3s, box-shadow .3s, border-color .3s;
+}
+.package-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 4px;
+  background: linear-gradient(90deg, var(--terra), var(--brown));
 }
 .package-card:hover {
   transform: translateY(-5px);
   box-shadow: var(--shadow);
   border-color: var(--blush);
 }
-.package-card__media {
-  aspect-ratio: 4 / 3;
+.package-card__eyebrow {
+  margin: 0;
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--terra);
 }
-.package-card__body {
-  padding: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: .9rem;
-  flex: 1;
-}
-.package-card__body h3 {
-  font-size: 1.4rem;
+.package-card h3 {
+  font-size: 1.6rem;
+  margin: -.4rem 0 0;
 }
 .package-card__price {
   display: flex;
   align-items: baseline;
-  gap: .6rem;
+  gap: .7rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
 }
 .package-card__amount {
   font-family: var(--display);
-  font-size: 1.6rem;
+  font-size: 1.7rem;
   font-weight: 600;
   color: var(--brown);
 }
 .package-card__duration {
-  font-size: .85rem;
+  font-size: .82rem;
+  font-weight: 600;
   color: var(--stone);
+  background: var(--sand);
+  padding: .3em .7em;
+  border-radius: 999px;
 }
 .package-card__includes {
   list-style: none;
@@ -74,23 +88,20 @@ defineProps<{
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: .5rem;
-  font-size: .92rem;
+  gap: .6rem;
+  font-size: .94rem;
   color: var(--ink);
   flex: 1;
 }
 .package-card__includes li {
   display: flex;
-  align-items: flex-start;
-  gap: .5em;
+  align-items: center;
+  gap: .6em;
 }
-.package-card__includes li::before {
-  content: "";
-  width: 5px;
-  height: 5px;
-  margin-top: .55em;
-  border-radius: 50%;
-  background: var(--terra);
+.package-card__includes svg {
+  width: 16px;
+  height: 16px;
+  color: var(--terra);
   flex: none;
 }
 </style>

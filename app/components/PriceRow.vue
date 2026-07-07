@@ -8,83 +8,71 @@ defineProps<{
 
 <template>
   <div class="price-row">
-    <div class="price-row__info">
-      <h3>{{ item.title }}</h3>
-      <p v-if="item.description">{{ item.description }}</p>
-    </div>
-    <div class="price-row__meta">
-      <span v-if="item.meta" class="tag">{{ item.meta }}</span>
+    <div class="price-row__line">
+      <span class="price-row__title">
+        {{ item.title }}
+        <span v-if="item.meta" class="price-row__meta">{{ item.meta }}</span>
+      </span>
+      <span class="price-row__leader" aria-hidden="true" />
       <span class="price-row__price">{{ item.price }}</span>
     </div>
-    <NuxtLink to="#reservation" class="btn btn--primary">Réserver</NuxtLink>
+    <p v-if="item.description" class="price-row__desc">{{ item.description }}</p>
   </div>
 </template>
 
 <style scoped>
 .price-row {
-  display: grid;
-  grid-template-columns: 1fr auto auto;
-  gap: 1.2rem;
-  align-items: center;
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 1.05rem 1.3rem;
-  margin-bottom: .7rem;
-  transition: border-color .25s, box-shadow .25s;
+  padding: .85rem 0;
+  border-bottom: 1px solid var(--border);
 }
-.price-row:hover {
-  border-color: var(--blush);
-  box-shadow: var(--shadow-sm);
+.price-row:last-child {
+  border-bottom: none;
 }
-.price-row__info h3 {
-  font-size: 1.28rem;
-  font-weight: 600;
+.price-row__line {
+  display: flex;
+  align-items: baseline;
+  gap: .6rem;
 }
-.price-row__info p {
-  margin: .15rem 0 0;
-  font-size: .88rem;
-  color: var(--stone);
+.price-row__title {
+  font-family: var(--display);
+  font-size: 1.15rem;
+  color: var(--ink);
+  white-space: nowrap;
 }
 .price-row__meta {
-  display: flex;
-  align-items: center;
-  gap: .9rem;
-}
-.tag {
-  display: inline-flex;
-  align-items: center;
-  font-size: .8rem;
-  font-weight: 700;
+  font-family: var(--body);
+  font-size: .76rem;
+  font-weight: 600;
   color: var(--stone);
-  background: var(--sand);
-  padding: .4em .8em;
-  border-radius: 999px;
-  white-space: nowrap;
+  margin-left: .5em;
+}
+.price-row__leader {
+  flex: 1;
+  border-bottom: 1px dotted var(--border);
+  transform: translateY(-5px);
 }
 .price-row__price {
   font-family: var(--display);
-  font-size: 1.7rem;
+  font-size: 1.2rem;
   font-weight: 600;
   color: var(--brown);
   white-space: nowrap;
 }
-.price-row .btn {
-  padding: .7em 1.2em;
-  font-size: .82rem;
+.price-row__desc {
+  margin: .3rem 0 0;
+  font-size: .85rem;
+  color: var(--stone);
 }
 
-@media (max-width: 620px) {
-  .price-row {
-    grid-template-columns: 1fr;
-    gap: .9rem;
-    text-align: left;
+@media (max-width: 480px) {
+  .price-row__leader {
+    display: none;
   }
-  .price-row__meta {
+  .price-row__line {
     justify-content: space-between;
   }
-  .price-row .btn {
-    width: 100%;
+  .price-row__title {
+    white-space: normal;
   }
 }
 </style>
