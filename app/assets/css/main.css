@@ -70,6 +70,16 @@ h1, h2, h3 {
   letter-spacing: .005em;
 }
 
+/* ---- Utilitaires de mise en page ---- */
+.wrap {
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding-inline: var(--gut);
+}
+.section {
+  padding-block: clamp(56px, 9vw, 104px);
+}
+
 /* ---- Accessibilité ---- */
 :focus-visible {
   outline: 2.5px solid var(--terra);
