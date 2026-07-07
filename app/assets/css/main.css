@@ -144,6 +144,9 @@ h1, h2, h3 {
   padding: 1.05em 2em;
   font-size: 1rem;
 }
+.btn--block {
+  width: 100%;
+}
 
 /* ---- Accessibilité ---- */
 :focus-visible {
