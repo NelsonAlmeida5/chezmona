@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { contactInfo } from '~/data/contact'
+import { partners } from '~/data/partners'
+
 const links = [
   { to: '/', label: 'Accueil' },
   { to: '/prestations', label: 'Prestations & tarifs' },
@@ -11,56 +14,160 @@ const year = new Date().getFullYear()
 
 <template>
   <footer class="site-footer">
-    <div class="wrap footer__inner">
-      <NuxtLink to="/" class="brand" aria-label="Chez Mona — accueil">
-        <img src="/images/logo/LOGO V1 NOIR SF.png" alt="Chez Mona" class="footer__logo">
-      </NuxtLink>
-      <nav class="footer__nav" aria-label="Navigation pied de page">
-        <NuxtLink v-for="link in links" :key="link.to" :to="link.to">
-          {{ link.label }}
-        </NuxtLink>
-      </nav>
-      <p class="footer__copy">© {{ year }} Chez Mona — Bien-être esthétique.</p>
+    <div class="wrap">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <NuxtLink to="/" aria-label="Chez Mona — accueil">
+            <img src="/images/logo/LOGO V1 NOIR SF.png" alt="Chez Mona" class="footer__logo">
+          </NuxtLink>
+          <p>Institut de beauté &amp; épilation laser. Des soins certifiés, un accompagnement chaleureux.</p>
+        </div>
+
+        <nav class="footer__col" aria-label="Navigation pied de page">
+          <h4>Navigation</h4>
+          <NuxtLink v-for="link in links" :key="link.to" :to="link.to">{{ link.label }}</NuxtLink>
+        </nav>
+
+        <div class="footer__col">
+          <h4>Contact</h4>
+          <p>{{ contactInfo.address }}</p>
+          <p>{{ contactInfo.phone }}</p>
+          <NuxtLink :to="contactInfo.bookingUrl" class="btn btn--light footer__cta">Réserver</NuxtLink>
+        </div>
+      </div>
+
+      <div class="footer__partners">
+        <p class="footer__partners-label">Nos partenaires</p>
+        <div class="footer__partners-row">
+          <div v-for="partner in partners" :key="partner.id" class="footer__partner">
+            <img :src="partner.logo" :alt="partner.name" loading="lazy">
+          </div>
+        </div>
+      </div>
+
+      <div class="footer__bottom">
+        <span>© {{ year }} Chez Mona — Bien-être esthétique. Certifié O-LRNIS &amp; OFSP.</span>
+      </div>
     </div>
   </footer>
 </template>
 
 <style scoped>
-/*
-  Fond clair provisoire : le logo actuel (LOGO V1 NOIR SF.png) est noir sur
-  fond transparent et illisible sur le fond sombre --espresso prévu par la
-  maquette. À revoir avec une variante claire du logo.
-*/
 .site-footer {
-  background: var(--sand);
-  border-top: 1px solid var(--border);
+  background: var(--espresso);
+  color: rgba(255, 255, 255, .7);
+  padding-block: clamp(48px, 7vw, 72px) 2rem;
 }
-.footer__inner {
-  padding-block: 2.5rem;
+
+/* ---- Grille principale ---- */
+.footer__grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  gap: 2.5rem;
+}
+.footer__logo {
+  height: 64px;
+  width: auto;
+  margin-bottom: 1rem;
+  /* Logo source noir sur fond transparent : converti en blanc pour rester lisible sur fond sombre. */
+  filter: brightness(0) invert(1);
+}
+.footer__brand p {
+  max-width: 34ch;
+  font-size: .92rem;
+  margin: 0;
+}
+.footer__col h4,
+.footer__partners-label {
+  color: #fff;
+  font-family: var(--body);
+  font-size: .78rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  margin: 0 0 1.1rem;
+}
+.footer__col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.footer__col a:not(.btn),
+.footer__col p {
+  color: rgba(255, 255, 255, .7);
+  font-size: .92rem;
+  margin: 0 0 .6rem;
+  transition: color .2s;
+}
+.footer__col a:not(.btn):hover {
+  color: var(--terra);
+}
+.footer__cta {
+  margin-top: .4rem;
+  padding: .6em 1.3em;
+  font-size: .85rem;
+}
+
+/* ---- Partenaires ---- */
+.footer__partners {
+  margin-top: 2.6rem;
+  padding-top: 1.8rem;
+  border-top: 1px solid rgba(255, 255, 255, .12);
+}
+.footer__partners-row {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
-  gap: 1.2rem;
+  gap: 1rem;
 }
-.footer__logo {
-  height: 48px;
-  width: auto;
-}
-.footer__nav {
+.footer__partner {
+  flex: 0 0 auto;
+  min-width: 0;
+  height: 52px;
+  padding: .5rem 1.1rem;
   display: flex;
-  flex-wrap: wrap;
-  gap: 1.2rem;
-  font-size: .92rem;
-  font-weight: 600;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border-radius: 10px;
 }
-.footer__nav a:hover {
-  color: var(--brown);
+.footer__partner img {
+  height: 100%;
+  width: auto;
+  min-width: 0;
+  max-width: 130px;
+  object-fit: contain;
 }
-.footer__copy {
-  margin: 0;
+
+/* ---- Bas de page ---- */
+.footer__bottom {
+  border-top: 1px solid rgba(255, 255, 255, .12);
+  margin-top: 2.6rem;
+  padding-top: 1.6rem;
   font-size: .82rem;
-  color: var(--stone);
-  width: 100%;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 860px) {
+  .footer__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .footer__brand {
+    grid-column: 1 / -1;
+  }
+}
+@media (max-width: 620px) {
+  .footer__grid {
+    grid-template-columns: 1fr;
+  }
+  .footer__col {
+    align-items: flex-start;
+  }
+  .footer__partners-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .footer__partner {
+    width: 100%;
+  }
 }
 </style>
