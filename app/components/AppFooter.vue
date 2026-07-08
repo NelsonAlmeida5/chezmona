@@ -18,7 +18,7 @@ const year = new Date().getFullYear()
       <div class="footer__grid">
         <div class="footer__brand">
           <NuxtLink to="/" aria-label="Chez Mona — accueil">
-            <img src="/images/logo/LOGO V1 NOIR SF.png" alt="Chez Mona" class="footer__logo">
+            <img src="/images/logo/chez-mona-logo-simple-blanc.png" alt="Chez Mona" class="footer__logo">
           </NuxtLink>
           <p>Institut de beauté &amp; épilation laser. Des soins certifiés, un accompagnement chaleureux.</p>
         </div>
@@ -66,11 +66,9 @@ const year = new Date().getFullYear()
   gap: 2.5rem;
 }
 .footer__logo {
-  height: 64px;
+  height: 100px;
   width: auto;
   margin-bottom: 1rem;
-  /* Logo source noir sur fond transparent : converti en blanc pour rester lisible sur fond sombre. */
-  filter: brightness(0) invert(1);
 }
 .footer__brand p {
   max-width: 34ch;

@@ -11,7 +11,7 @@ const links = [
   <header class="site-header">
     <div class="wrap nav">
       <NuxtLink to="/" class="brand" aria-label="Chez Mona — accueil">
-        <img src="/images/logo/LOGO V1 NOIR SF.png" alt="Chez Mona" class="brand__logo">
+        <img src="/images/logo/chez-mona-logo-simple-noir.png" alt="Chez Mona" class="brand__logo">
       </NuxtLink>
       <nav class="nav__links" aria-label="Navigation principale">
         <NuxtLink
@@ -31,7 +31,7 @@ const links = [
 
 <style scoped>
 .site-header {
-  background: var(--ivory);
+  background: rgba(251, 247, 241, .82);
   border-bottom: 1px solid var(--border);
 }
 .nav {
