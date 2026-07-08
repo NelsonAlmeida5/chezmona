@@ -14,13 +14,14 @@ export interface ContactInfo {
 }
 
 export const contactInfo: ContactInfo = {
-  address: 'Rue exemple 12, 1530 Valais (à compléter)',
-  phone: '+41 00 000 00 00 (à compléter)',
-  email: 'contact@chezmona.ch (à compléter)',
+  // Ville confirmée via les visuels tarifs de la cliente (docs/references/prestations-source.md) ;
+  // adresse complète (rue, numéro) encore à compléter.
+  address: '2830 Courrendlin (adresse complète à compléter)',
+  // Numéro confirmé via les mêmes visuels.
+  phone: '078 795 18 55',
+  email: 'à compléter',
   hours: [
-    { day: 'Lundi – Vendredi', hours: '09:00 – 19:00' },
-    { day: 'Samedi', hours: '09:00 – 16:00' },
-    { day: 'Dimanche', hours: 'Fermé', closed: true }
+    { day: 'Du lundi au samedi', hours: 'Sur rendez-vous' }
   ],
   bookingUrl: '#reservation'
 }

@@ -95,6 +95,9 @@ h1, h2, h3 {
   font-size: clamp(2rem, 4.5vw, 3rem);
   font-weight: 400;
 }
+.h-md {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+}
 .lead {
   font-size: clamp(1.02rem, 2.1vw, 1.18rem);
   color: var(--stone);
@@ -143,6 +146,14 @@ h1, h2, h3 {
 .btn--lg {
   padding: 1.05em 2em;
   font-size: 1rem;
+}
+.btn--light {
+  background: #fff;
+  color: var(--brown);
+}
+.btn--light:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
 }
 .btn--block {
   width: 100%;
