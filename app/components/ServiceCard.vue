@@ -33,28 +33,44 @@ defineProps<{
 
 <style scoped>
 .service-card {
-  background: var(--card);
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(165deg, #fff, var(--sand) 145%);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 1.7rem;
+  border-radius: var(--radius-lg);
+  padding: 1.9rem 1.7rem;
   display: flex;
   flex-direction: column;
   gap: .7rem;
   transition: transform .3s, box-shadow .3s, border-color .3s;
+}
+.service-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 3px;
+  background: linear-gradient(90deg, var(--terra), var(--brown));
+  opacity: 0;
+  transition: opacity .3s;
 }
 .service-card:hover {
   transform: translateY(-5px);
   box-shadow: var(--shadow);
   border-color: var(--blush);
 }
+.service-card:hover::before {
+  opacity: 1;
+}
 .service-card__icon {
-  width: 52px;
-  height: 52px;
-  border-radius: 14px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
   display: grid;
   place-items: center;
-  background: var(--sand);
+  background: #fff;
+  border: 1px solid var(--border);
   color: var(--brown);
+  box-shadow: var(--shadow-sm);
   margin-bottom: .3rem;
 }
 .service-card__icon svg {

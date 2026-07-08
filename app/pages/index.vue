@@ -8,13 +8,29 @@ useHead({ title: 'Chez Mona — Institut de beauté & épilation laser' })
 
 <template>
   <div>
-    <!-- Hero -->
+    <!-- Hero visuel -->
+    <section class="hero-visual">
+      <div class="hero-visual__media">
+        <!--
+          Placeholder en attendant une vraie photo du salon (ou une image
+          beauté/soin). Remplacer par :
+          <img src="..." alt="..." class="hero-visual__img">
+        -->
+        <ImagePlaceholder label="Photo institut / soin" bare />
+      </div>
+      <div class="hero-visual__veil" />
+      <div class="hero-visual__logo">
+        <img src="/images/logo/chez-mona-logo-blanc.png" alt="Chez Mona">
+      </div>
+    </section>
+
+    <!-- Accueil -->
     <section class="hero">
       <div class="hero__halo" />
       <div class="wrap hero__grid">
         <div class="hero__copy">
-          <SectionEyebrow text="Institut de beauté · Valais" />
-          <h1 class="h-xl">Le bien-être esthétique,<br>en toute confiance.</h1>
+          <SectionEyebrow text="Institut de beauté" />
+          <h1 class="h-xl">Le bien-être esthétique, à votre service.</h1>
           <p class="lead">
             Soins du visage et du corps, épilation laser dernière génération. Un accompagnement
             personnalisé dans un cadre doux, propre et apaisant — pensé pour vous faire du bien.
@@ -23,40 +39,25 @@ useHead({ title: 'Chez Mona — Institut de beauté & épilation laser' })
             <NuxtLink to="#reservation" class="btn btn--primary btn--lg">Réserver un rendez-vous</NuxtLink>
             <NuxtLink to="/prestations" class="btn btn--ghost btn--lg">Voir les prestations</NuxtLink>
           </div>
-          <div class="hero__reassure">
-            <span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg>
-              Certifié O-LRNIS &amp; OFSP
-            </span>
-            <span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg>
-              Hygiène irréprochable
-            </span>
-            <span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg>
-              Réservation en ligne 24h/24
-            </span>
-          </div>
         </div>
         <div class="hero__media">
           <div class="arch">
             <ImagePlaceholder label="Photo institut / soin" />
           </div>
-          <div class="hero__badge">
-            <b>★ 4,9</b>
-            <small>Avis clientes<br>vérifiés</small>
-          </div>
         </div>
       </div>
     </section>
 
-    <!-- Prestations principales -->
+    <!-- Nos univers -->
     <section class="section">
       <div class="wrap">
         <div class="section-head center">
           <SectionEyebrow text="Nos univers" center />
-          <h2 class="h-lg">Des prestations pensées pour révéler votre éclat</h2>
-          <p class="lead center">Chaque soin est réalisé avec des produits professionnels et un protocole sur mesure.</p>
+          <h2 class="h-lg">Des soins pensés pour votre bien-être</h2>
+          <p class="lead center">
+            Découvrez les prestations proposées par Chez Mona, avec une approche personnalisée et
+            adaptée à vos besoins.
+          </p>
         </div>
         <div class="card-grid">
           <ServiceCard v-for="service in services" :key="service.id" :service="service" />
@@ -64,7 +65,7 @@ useHead({ title: 'Chez Mona — Institut de beauté & épilation laser' })
       </div>
     </section>
 
-    <!-- Confiance -->
+    <!-- Pourquoi Chez Mona -->
     <section class="section section--sand">
       <div class="wrap">
         <div class="section-head center">
@@ -80,8 +81,8 @@ useHead({ title: 'Chez Mona — Institut de beauté & épilation laser' })
     <!-- Galerie courte -->
     <section class="section">
       <div class="wrap">
-        <div class="section-head">
-          <SectionEyebrow text="L'ambiance" />
+        <div class="section-head center">
+          <SectionEyebrow text="L'ambiance" center />
           <h2 class="h-lg">Un lieu pensé pour le bien-être</h2>
         </div>
         <GalleryGrid class="gallery-grid" :images="homeGallery" />
@@ -95,8 +96,8 @@ useHead({ title: 'Chez Mona — Institut de beauté & épilation laser' })
     <section class="section section--sand">
       <div class="wrap">
         <CtaBand
-          title="Prête à prendre soin de vous ?"
-          text="Réservez votre rendez-vous en quelques clics via notre plateforme en ligne. Une question ? Nous sommes là pour vous accompagner."
+          title="Envie de prendre rendez-vous ?"
+          text="Réservez votre rendez-vous en quelques clics via notre plateforme en ligne. Pour toute question, le salon reste disponible pour vous renseigner."
           cta-label="Réserver sur Fresha"
           cta-to="#reservation"
         />
@@ -106,7 +107,42 @@ useHead({ title: 'Chez Mona — Institut de beauté & épilation laser' })
 </template>
 
 <style scoped>
-/* ---- Hero ---- */
+/* ---- Hero visuel ---- */
+.hero-visual {
+  position: relative;
+  height: clamp(520px, 68vh, 760px);
+  overflow: hidden;
+}
+.hero-visual__media {
+  position: absolute;
+  inset: 0;
+}
+/* Prête pour une vraie photo : <img class="hero-visual__img"> couvrira tout le cadre. */
+.hero-visual__media :deep(.hero-visual__img) {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.hero-visual__veil {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(60% 60% at 50% 50%, rgba(46, 38, 32, .55), rgba(46, 38, 32, .3) 100%);
+}
+.hero-visual__logo {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1.5rem;
+}
+.hero-visual__logo img {
+  width: min(460px, 65%);
+  height: auto;
+}
+
+/* ---- Accueil ---- */
 .hero {
   position: relative;
   overflow: hidden;
@@ -138,28 +174,6 @@ useHead({ title: 'Chez Mona — Institut de beauté & épilation laser' })
   flex-wrap: wrap;
   gap: .8rem;
 }
-.hero__reassure {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.4rem;
-  margin-top: 2.4rem;
-  padding-top: 1.6rem;
-  border-top: 1px solid var(--border);
-}
-.hero__reassure span {
-  display: flex;
-  align-items: center;
-  gap: .5em;
-  font-size: .86rem;
-  font-weight: 600;
-  color: var(--stone);
-}
-.hero__reassure svg {
-  width: 16px;
-  height: 16px;
-  color: var(--terra);
-  flex: none;
-}
 .hero__media {
   position: relative;
 }
@@ -170,32 +184,6 @@ useHead({ title: 'Chez Mona — Institut de beauté & épilation laser' })
   background: var(--linen);
   box-shadow: var(--shadow);
   aspect-ratio: 4 / 5;
-}
-.hero__badge {
-  position: absolute;
-  left: -18px;
-  bottom: 24px;
-  background: #fff;
-  border-radius: 16px;
-  padding: .8rem 1.1rem;
-  box-shadow: var(--shadow);
-  display: flex;
-  align-items: center;
-  gap: .7rem;
-  border: 1px solid var(--border);
-}
-.hero__badge b {
-  font-family: var(--display);
-  font-size: 1.6rem;
-  font-weight: 600;
-  color: var(--brown);
-  line-height: 1;
-}
-.hero__badge small {
-  display: block;
-  font-size: .74rem;
-  color: var(--stone);
-  letter-spacing: .02em;
 }
 
 /* ---- En-têtes de section ---- */
@@ -215,10 +203,10 @@ useHead({ title: 'Chez Mona — Institut de beauté & épilation laser' })
 }
 
 .gallery-grid {
-  margin-top: 2rem;
+  margin-top: 2.4rem;
 }
 .gallery-more {
-  margin-top: 2rem;
+  margin-top: 2.2rem;
 }
 
 /* ---- Responsive ---- */
@@ -237,16 +225,17 @@ useHead({ title: 'Chez Mona — Institut de beauté & épilation laser' })
     max-width: 380px;
     margin-inline: auto;
   }
-  .hero__actions,
-  .hero__reassure {
+  .hero__actions {
     justify-content: center;
-  }
-  .hero__badge {
-    left: 50%;
-    transform: translateX(-50%);
   }
 }
 @media (max-width: 620px) {
+  .hero-visual {
+    height: clamp(360px, 55vh, 520px);
+  }
+  .hero-visual__logo img {
+    width: min(280px, 75%);
+  }
   .card-grid {
     grid-template-columns: 1fr;
   }

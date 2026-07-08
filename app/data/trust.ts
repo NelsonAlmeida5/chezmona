@@ -6,23 +6,23 @@ export interface TrustItem {
 
 export const trustItems: TrustItem[] = [
   {
-    id: 'certification',
-    title: 'Certification',
-    description: "Pratiques conformes aux exigences O-LRNIS & OFSP pour l'épilation laser."
-  },
-  {
-    id: 'hygiene',
-    title: 'Hygiène',
-    description: "Matériel stérilisé et protocoles d'hygiène stricts à chaque rendez-vous."
-  },
-  {
-    id: 'accompagnement',
-    title: 'Accompagnement',
-    description: 'Un bilan personnalisé et des conseils adaptés à votre peau et vos objectifs.'
+    id: 'accompagnement-personnalise',
+    title: 'Accompagnement personnalisé',
+    description: 'Une écoute attentive et des conseils adaptés à votre peau et vos objectifs.'
   },
   {
     id: 'cadre-apaisant',
-    title: 'Cadre apaisant',
+    title: 'Cadre doux et apaisant',
     description: 'Un espace chaleureux et discret pour vivre chaque soin en toute sérénité.'
+  },
+  {
+    id: 'soin-professionnel',
+    title: 'Soin professionnel',
+    description: 'Des protocoles rigoureux, réalisés avec sérieux à chaque rendez-vous.'
+  },
+  {
+    id: 'reservation-simple',
+    title: 'Réservation simple',
+    description: 'Prenez rendez-vous en ligne en quelques clics, à tout moment.'
   }
 ]

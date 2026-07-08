@@ -2,23 +2,28 @@
 withDefaults(defineProps<{
   label: string
   icon?: 'photo' | 'pin'
+  /** Masque l'icône et la légende — utile en fond plein cadre (ex. hero). */
+  bare?: boolean
 }>(), {
-  icon: 'photo'
+  icon: 'photo',
+  bare: false
 })
 </script>
 
 <template>
   <div class="ph">
-    <svg v-if="icon === 'photo'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-      <rect x="3" y="4" width="18" height="16" rx="2" />
-      <circle cx="9" cy="10" r="1.6" />
-      <path d="m4 18 5-5 4 4 3-3 4 4" />
-    </svg>
-    <svg v-else viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-      <path d="M12 21c4-4 7-7.5 7-11a7 7 0 1 0-14 0c0 3.5 3 7 7 11Z" />
-      <circle cx="12" cy="10" r="2.5" />
-    </svg>
-    <small>{{ label }}</small>
+    <template v-if="!bare">
+      <svg v-if="icon === 'photo'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="3" y="4" width="18" height="16" rx="2" />
+        <circle cx="9" cy="10" r="1.6" />
+        <path d="m4 18 5-5 4 4 3-3 4 4" />
+      </svg>
+      <svg v-else viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M12 21c4-4 7-7.5 7-11a7 7 0 1 0-14 0c0 3.5 3 7 7 11Z" />
+        <circle cx="12" cy="10" r="2.5" />
+      </svg>
+      <small>{{ label }}</small>
+    </template>
   </div>
 </template>
 
